@@ -38,13 +38,13 @@ export function ResultScreen() {
 
         <View style={styles.actions}>
           <Button
-            label="📤 Compartilhar"
+            label="Compartilhar"
             onPress={handleShare}
             variant="outline"
             style={styles.actionBtn}
           />
           <Button
-            label="← Nova análise"
+            label="Nova análise"
             onPress={() => navigation.goBack()}
             variant="outline"
             style={styles.actionBtn}
@@ -65,7 +65,7 @@ export function ResultScreen() {
           style={styles.historyLink}
           onPress={() => navigation.getParent()?.navigate('History')}
         >
-          <Text style={styles.historyLinkText}>Ver histórico completo →</Text>
+          <Text style={styles.historyLinkText}>Ver histórico completo</Text>
         </TouchableOpacity>
       </ScrollView>
 

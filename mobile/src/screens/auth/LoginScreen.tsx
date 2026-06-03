@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Input } from '../../components/common/Input';
 import { Button } from '../../components/common/Button';
+import { Logo } from '../../components/common/Logo';
 import { authService } from '../../services/auth.service';
 import { useAuthStore } from '../../store/auth.store';
 import { AuthStackParamList } from '../../types/navigation.types';
@@ -55,9 +56,10 @@ export function LoginScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
-        <Text style={styles.logo}>✨</Text>
-        <Text style={styles.title}>Simplifica AI</Text>
-        <Text style={styles.subtitle}>Entenda qualquer texto em segundos</Text>
+        <View style={styles.logoArea}>
+          <Logo size="large" />
+          <Text style={styles.subtitle}>Entenda qualquer texto em segundos</Text>
+        </View>
 
         <View style={styles.form}>
           <Input
@@ -99,18 +101,16 @@ export function LoginScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   scroll: { flexGrow: 1, padding: 24, justifyContent: 'center', gap: 8 },
-  logo: { fontSize: 48, textAlign: 'center' },
-  title: {
-    color: colors.text,
-    fontSize: 32,
-    fontWeight: '800',
-    textAlign: 'center',
+  logoArea: {
+    alignItems: 'center',
+    gap: 12,
+    marginBottom: 16,
   },
   subtitle: {
     color: colors.textMuted,
-    fontSize: 15,
+    fontSize: 14,
     textAlign: 'center',
-    marginBottom: 16,
+    letterSpacing: 0.1,
   },
   form: { gap: 14 },
   forgotLink: { color: colors.primary, fontSize: 13, textAlign: 'right' },

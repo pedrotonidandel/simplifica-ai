@@ -14,9 +14,13 @@ export function ResultCard({ analysis }: Props) {
 
   return (
     <Card>
-      <View style={[styles.modeBadge, { backgroundColor: (modeConfig?.color ?? '#fff') + '22' }]}>
-        <Text style={styles.modeIcon}>{modeConfig?.icon}</Text>
-        <Text style={[styles.modeLabel, { color: modeConfig?.color }]}>
+      <View style={[styles.modeBadge, { backgroundColor: (modeConfig?.color ?? colors.primary) + '18' }]}>
+        <View style={[styles.abbrPill, { backgroundColor: (modeConfig?.color ?? colors.primary) + '30' }]}>
+          <Text style={[styles.abbrText, { color: modeConfig?.color ?? colors.primary }]}>
+            {modeConfig?.abbr}
+          </Text>
+        </View>
+        <Text style={[styles.modeLabel, { color: modeConfig?.color ?? colors.primary }]}>
           {modeConfig?.label}
         </Text>
       </View>
@@ -35,7 +39,23 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginBottom: 16,
   },
-  modeIcon: { fontSize: 18 },
-  modeLabel: { fontWeight: '700', fontSize: 13 },
-  result: { color: colors.text, fontSize: 16, lineHeight: 27 },
+  abbrPill: {
+    borderRadius: 5,
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+  },
+  abbrText: {
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+  },
+  modeLabel: {
+    fontWeight: '700',
+    fontSize: 13,
+  },
+  result: {
+    color: colors.text,
+    fontSize: 16,
+    lineHeight: 27,
+  },
 });

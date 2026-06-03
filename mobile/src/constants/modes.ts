@@ -4,7 +4,7 @@ export interface ModeConfig {
   id: AnalysisMode;
   label: string;
   description: string;
-  icon: string;
+  abbr: string;
   premium: boolean;
   color: string;
 }
@@ -14,7 +14,7 @@ export const MODES: ModeConfig[] = [
     id: 'CHILD',
     label: 'Explique para mim',
     description: 'Como se eu tivesse 12 anos',
-    icon: '🧒',
+    abbr: 'EP',
     premium: false,
     color: '#6C63FF',
   },
@@ -22,15 +22,15 @@ export const MODES: ModeConfig[] = [
     id: 'SUMMARY',
     label: 'Resumo rápido',
     description: 'O essencial em 5 frases',
-    icon: '⚡',
+    abbr: 'RS',
     premium: false,
     color: '#4CAF50',
   },
   {
     id: 'KEY_POINTS',
-    label: 'Pontos importantes',
+    label: 'Pontos principais',
     description: 'Lista dos pontos-chave',
-    icon: '📌',
+    abbr: 'PI',
     premium: false,
     color: '#FF9800',
   },
@@ -38,7 +38,7 @@ export const MODES: ModeConfig[] = [
     id: 'RISKS',
     label: 'Riscos e armadilhas',
     description: 'O que pode te prejudicar',
-    icon: '⚠️',
+    abbr: 'RI',
     premium: false,
     color: '#F44336',
   },
@@ -46,8 +46,8 @@ export const MODES: ModeConfig[] = [
     id: 'HIDDEN',
     label: 'O que está escondido?',
     description: 'Segredos que o texto oculta',
-    icon: '🔍',
+    abbr: 'SE',
     premium: true,
-    color: '#FFD700',
+    color: '#C9A227',
   },
 ];

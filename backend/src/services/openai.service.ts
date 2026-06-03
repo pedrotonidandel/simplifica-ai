@@ -1,17 +1,19 @@
 import { AnalysisMode } from '@prisma/client';
-import { openai } from '../config/openai';
+import { groq } from '../config/anthropic';
 import { env } from '../config/env';
-import { buildPrompt } from '../utils/prompts';
+import { PROMPTS } from '../utils/prompts';
 import { AnalysisResult } from '../types/analysis.types';
 
 export class OpenAIService {
   async analyze(mode: AnalysisMode, inputText: string): Promise<AnalysisResult> {
     const start = Date.now();
-    const prompt = buildPrompt(mode, inputText);
 
-    const response = await openai.chat.completions.create({
-      model: env.OPENAI_MODEL,
-      messages: [{ role: 'user', content: prompt }],
+    const response = await groq.chat.completions.create({
+      model: env.GROQ_MODEL,
+      messages: [
+        { role: 'system', content: PROMPTS[mode] },
+        { role: 'user', content: inputText },
+      ],
       max_tokens: 1500,
       temperature: 0.3,
     });

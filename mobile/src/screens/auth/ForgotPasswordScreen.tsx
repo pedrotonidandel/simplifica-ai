@@ -44,7 +44,6 @@ export function ForgotPasswordScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <View style={styles.content}>
-        <Text style={styles.icon}>🔐</Text>
         <Text style={styles.title}>Recuperar senha</Text>
         <Text style={styles.subtitle}>
           Digite seu e-mail e enviaremos um link para redefinir sua senha.
@@ -66,7 +65,6 @@ export function ForgotPasswordScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   content: { flex: 1, padding: 24, justifyContent: 'center', gap: 16 },
-  icon: { fontSize: 48, textAlign: 'center' },
   title: { color: colors.text, fontSize: 24, fontWeight: '700', textAlign: 'center' },
   subtitle: { color: colors.textMuted, fontSize: 14, textAlign: 'center', lineHeight: 22 },
 });

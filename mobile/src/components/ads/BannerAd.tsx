@@ -27,7 +27,7 @@ export function BannerAd({ position = 'bottom' }: Props) {
 
   return (
     <View style={[styles.container, position === 'top' ? styles.top : styles.bottom]}>
-      <Text style={styles.text}>📢 Anúncio · Assine Premium para remover</Text>
+      <Text style={styles.text}>Anúncio · Assine Premium para remover</Text>
     </View>
   );
 }

@@ -4,28 +4,27 @@ import { Button } from '../../components/common/Button';
 import { colors } from '../../theme/colors';
 
 interface Feature {
-  icon: string;
   label: string;
   free: boolean;
   premium: boolean;
 }
 
 const FEATURES: Feature[] = [
-  { icon: '⚡', label: 'Análises por dia', free: false, premium: false },
-  { icon: '♾️', label: 'Análises ilimitadas', free: false, premium: true },
-  { icon: '🧒', label: 'Modo Explique para mim', free: true, premium: true },
-  { icon: '📌', label: 'Modo Pontos importantes', free: true, premium: true },
-  { icon: '⚠️', label: 'Modo Riscos e armadilhas', free: true, premium: true },
-  { icon: '🔍', label: 'O que está escondido?', free: false, premium: true },
-  { icon: '📚', label: 'Histórico ilimitado', free: false, premium: true },
-  { icon: '🚫', label: 'Sem anúncios', free: false, premium: true },
+  { label: '5 análises/dia', free: true, premium: false },
+  { label: 'Análises ilimitadas', free: false, premium: true },
+  { label: 'Modo Explique para mim', free: true, premium: true },
+  { label: 'Modo Resumo rápido', free: true, premium: true },
+  { label: 'Modo Pontos principais', free: true, premium: true },
+  { label: 'Modo Riscos e armadilhas', free: true, premium: true },
+  { label: 'Modo O que está escondido?', free: false, premium: true },
+  { label: 'Histórico ilimitado', free: false, premium: true },
+  { label: 'Sem anúncios', free: false, premium: true },
 ];
 
 export function PremiumScreen() {
   const handleSubscribe = () => {
-    // TODO: integrar react-native-iap para Google Play Billing e Apple IAP
     Alert.alert(
-      '🚧 Em breve',
+      'Em breve',
       'A integração com loja de pagamentos está em desenvolvimento.',
       [{ text: 'OK' }]
     );
@@ -37,15 +36,19 @@ export function PremiumScreen() {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      <Text style={styles.crown}>👑</Text>
-      <Text style={styles.title}>Simplifica AI Premium</Text>
-      <Text style={styles.subtitle}>Entenda qualquer texto, sem limites.</Text>
+      <View style={styles.header}>
+        <View style={styles.headerMark}>
+          <Text style={styles.headerMarkText}>PRO</Text>
+        </View>
+        <Text style={styles.title}>Simplifica AI Premium</Text>
+        <Text style={styles.subtitle}>Entenda qualquer texto, sem limites.</Text>
+      </View>
 
       <View style={styles.table}>
         <View style={styles.tableHeader}>
-          <Text style={[styles.colFeature]}>Funcionalidade</Text>
+          <Text style={styles.colFeature}>Funcionalidade</Text>
           <Text style={styles.colPlan}>Grátis</Text>
-          <Text style={[styles.colPlan, { color: colors.premium }]}>Premium</Text>
+          <Text style={[styles.colPlan, { color: '#C9A227' }]}>Premium</Text>
         </View>
 
         {FEATURES.map((f, i) => (
@@ -56,13 +59,13 @@ export function PremiumScreen() {
               i === FEATURES.length - 1 && { borderBottomWidth: 0 },
             ]}
           >
-            <Text style={styles.colFeature}>
-              {f.icon} {f.label === 'Análises por dia' ? '5/dia' : f.label}
+            <Text style={styles.colFeature}>{f.label}</Text>
+            <Text style={[styles.colPlan, !f.free && styles.noMark]}>
+              {f.free ? '✓' : '—'}
             </Text>
-            <Text style={[styles.colPlan, !f.free && styles.noIcon]}>
-              {f.free ? '✅' : '—'}
+            <Text style={[styles.colPlan, f.premium && styles.checkMark]}>
+              {f.premium ? '✓' : '—'}
             </Text>
-            <Text style={styles.colPlan}>{f.premium ? '✅' : '—'}</Text>
           </View>
         ))}
       </View>
@@ -72,11 +75,11 @@ export function PremiumScreen() {
           <Text style={styles.priceValue}>R$ 14,90</Text>
           <Text style={styles.pricePeriod}>/mês</Text>
         </View>
-        <Text style={styles.priceNote}>ou R$ 99,90/ano (economize 44%)</Text>
+        <Text style={styles.priceNote}>ou R$ 99,90/ano · economize 44%</Text>
       </View>
 
       <Button
-        label="👑 Assinar Premium"
+        label="Assinar Premium"
         onPress={handleSubscribe}
         style={styles.cta}
       />
@@ -91,9 +94,29 @@ export function PremiumScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   content: { padding: 24, gap: 20, alignItems: 'center', paddingBottom: 40 },
-  crown: { fontSize: 56 },
-  title: { color: colors.premium, fontSize: 26, fontWeight: '800', textAlign: 'center' },
-  subtitle: { color: colors.textMuted, fontSize: 16, textAlign: 'center' },
+  header: { alignItems: 'center', gap: 10 },
+  headerMark: {
+    backgroundColor: '#C9A22720',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: '#C9A22740',
+  },
+  headerMarkText: {
+    color: '#C9A227',
+    fontSize: 16,
+    fontWeight: '800',
+    letterSpacing: 2,
+  },
+  title: {
+    color: colors.text,
+    fontSize: 24,
+    fontWeight: '800',
+    textAlign: 'center',
+    letterSpacing: -0.5,
+  },
+  subtitle: { color: colors.textMuted, fontSize: 15, textAlign: 'center' },
   table: {
     width: '100%',
     backgroundColor: colors.surface,
@@ -118,13 +141,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   colFeature: { flex: 2, color: colors.text, fontSize: 13 },
-  colPlan: { flex: 1, color: colors.text, fontSize: 14, textAlign: 'center', fontWeight: '600' },
-  noIcon: { color: colors.textMuted, fontWeight: '400' },
+  colPlan: {
+    flex: 1,
+    color: colors.textMuted,
+    fontSize: 14,
+    textAlign: 'center',
+    fontWeight: '400',
+  },
+  noMark: { color: colors.textMuted },
+  checkMark: { color: '#4CAF50', fontWeight: '700' },
   priceCard: { alignItems: 'center', gap: 4 },
   priceRow: { flexDirection: 'row', alignItems: 'flex-end', gap: 4 },
-  priceValue: { color: colors.premium, fontSize: 44, fontWeight: '800' },
+  priceValue: {
+    color: colors.text,
+    fontSize: 44,
+    fontWeight: '800',
+    letterSpacing: -1,
+  },
   pricePeriod: { color: colors.textMuted, fontSize: 18, marginBottom: 8 },
   priceNote: { color: colors.textMuted, fontSize: 13 },
   cta: { width: '100%' },
-  terms: { color: colors.textMuted, fontSize: 11, textAlign: 'center', lineHeight: 18 },
+  terms: {
+    color: colors.textMuted,
+    fontSize: 11,
+    textAlign: 'center',
+    lineHeight: 18,
+  },
 });

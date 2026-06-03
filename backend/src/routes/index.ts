@@ -7,7 +7,7 @@ import { UsageRepository } from '../repositories/usage.repository';
 import { SubscriptionRepository } from '../repositories/subscription.repository';
 
 import { AuthService } from '../services/auth.service';
-import { OpenAIService } from '../services/openai.service';
+import { OpenAIService } from '../services/openai.service'; // wraps Anthropic SDK
 import { UsageService } from '../services/usage.service';
 import { AnalysisService } from '../services/analysis.service';
 import { SubscriptionService } from '../services/subscription.service';

@@ -1,0 +1,39 @@
+databases:
+  - name: simplifica-ai-db
+    databaseName: simplifica_ai
+    user: simplifica_ai
+    plan: free
+
+services:
+  - type: web
+    name: simplifica-ai-api
+    plan: free
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: simplifica-ai-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: GROQ_API_KEY
+        sync: false          # preencher manualmente no dashboard
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      - key: FREE_DAILY_LIMIT
+        value: 5
+      - key: MAX_TEXT_LENGTH
+        value: 10000
+      - key: ALLOWED_ORIGIN
+        sync: false          # preencher com a URL do seu domínio (ex: https://app.simplifica.ai)
+      - key: REDIS_URL
+        value: redis://localhost:6379   # não utilizado em produção atualmente

@@ -13,7 +13,9 @@ export function UpgradePrompt({ message = 'Faça upgrade para usar essa funciona
 
   return (
     <View style={styles.container}>
-      <Text style={styles.icon}>👑</Text>
+      <View style={styles.proBadge}>
+        <Text style={styles.proText}>PRO</Text>
+      </View>
       <Text style={styles.message}>{message}</Text>
       <Button
         label="Ver plano Premium"
@@ -26,15 +28,28 @@ export function UpgradePrompt({ message = 'Faça upgrade para usar essa funciona
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(255,215,0,0.08)',
+    backgroundColor: '#C9A22710',
     borderRadius: 14,
     padding: 20,
     alignItems: 'center',
     gap: 10,
     borderWidth: 1,
-    borderColor: 'rgba(255,215,0,0.2)',
+    borderColor: '#C9A22730',
   },
-  icon: { fontSize: 32 },
+  proBadge: {
+    backgroundColor: '#C9A22720',
+    borderRadius: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    borderWidth: 1,
+    borderColor: '#C9A22740',
+  },
+  proText: {
+    color: '#C9A227',
+    fontSize: 14,
+    fontWeight: '800',
+    letterSpacing: 2,
+  },
   message: { color: colors.text, fontSize: 14, textAlign: 'center', lineHeight: 20 },
   button: { width: '100%', marginTop: 4 },
 });

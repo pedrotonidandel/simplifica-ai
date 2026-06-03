@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
 import { HomeScreen } from '../screens/main/HomeScreen';
 import { ResultScreen } from '../screens/main/ResultScreen';
 import { HistoryScreen } from '../screens/main/HistoryScreen';
@@ -36,7 +36,7 @@ function HomeStackNavigator() {
       <HomeStack.Screen
         name="Premium"
         component={PremiumScreen}
-        options={{ title: '👑 Premium' }}
+        options={{ title: 'Premium' }}
       />
     </HomeStack.Navigator>
   );
@@ -61,8 +61,8 @@ export function MainNavigator() {
         component={HomeStackNavigator}
         options={{
           title: 'Início',
-          tabBarIcon: ({ color, size }) => (
-            <Text style={{ color, fontSize: size - 4 }}>🏠</Text>
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons name={focused ? 'home' : 'home-outline'} size={size} color={color} />
           ),
         }}
       />
@@ -73,8 +73,8 @@ export function MainNavigator() {
           title: 'Histórico',
           headerShown: true,
           ...screenOptions,
-          tabBarIcon: ({ color, size }) => (
-            <Text style={{ color, fontSize: size - 4 }}>📋</Text>
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons name={focused ? 'time' : 'time-outline'} size={size} color={color} />
           ),
         }}
       />
@@ -85,8 +85,8 @@ export function MainNavigator() {
           title: 'Perfil',
           headerShown: true,
           ...screenOptions,
-          tabBarIcon: ({ color, size }) => (
-            <Text style={{ color, fontSize: size - 4 }}>👤</Text>
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons name={focused ? 'person' : 'person-outline'} size={size} color={color} />
           ),
         }}
       />

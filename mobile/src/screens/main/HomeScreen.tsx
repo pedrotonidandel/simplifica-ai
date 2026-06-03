@@ -40,11 +40,11 @@ export function HomeScreen() {
     }
     if (!canAnalyze) {
       Alert.alert(
-        'Limite atingido',
-        'Você usou suas 5 análises gratuitas de hoje.\nFaça upgrade para analisar sem limites!',
+        'Limite diário atingido',
+        'Você usou suas 5 análises gratuitas de hoje. Faça upgrade para continuar.',
         [
           { text: 'Agora não', style: 'cancel' },
-          { text: '👑 Ver Premium', onPress: () => navigation.navigate('Premium') },
+          { text: 'Ver Premium', onPress: () => navigation.navigate('Premium') },
         ]
       );
       return;
@@ -57,7 +57,7 @@ export function HomeScreen() {
       if (error.response?.status === 429) {
         Alert.alert('Limite atingido', msg, [
           { text: 'OK' },
-          { text: '👑 Premium', onPress: () => navigation.navigate('Premium') },
+          { text: 'Premium', onPress: () => navigation.navigate('Premium') },
         ]);
       } else {
         Alert.alert('Erro', msg);
@@ -67,8 +67,8 @@ export function HomeScreen() {
 
   const handlePremiumPress = () => {
     Alert.alert(
-      '👑 Funcionalidade Premium',
-      '"O que está escondido?" revela segredos que contratos e termos tentam esconder.\nDisponível apenas no Premium.',
+      'Funcionalidade Premium',
+      '"O que está escondido?" revela segredos que contratos e termos tentam ocultar. Disponível apenas no plano Premium.',
       [
         { text: 'Cancelar', style: 'cancel' },
         { text: 'Assinar Premium', onPress: () => navigation.navigate('Premium') },
@@ -90,27 +90,26 @@ export function HomeScreen() {
       >
         <View style={styles.header}>
           <Text style={styles.greeting}>
-            Olá, {user?.name?.split(' ')[0] ?? 'usuário'} 👋
+            Olá, {user?.name?.split(' ')[0] ?? 'usuário'}
           </Text>
           {!isPremium && (
             <TouchableOpacity onPress={() => navigation.navigate('Premium')}>
-              <Text style={styles.remaining}>
-                {dailyRemaining} restantes hoje
-              </Text>
+              <Text style={styles.remaining}>{dailyRemaining} restantes</Text>
             </TouchableOpacity>
           )}
           {isPremium && (
-            <View style={styles.premiumBadge}>
-              <Text style={styles.premiumText}>👑 Premium</Text>
+            <View style={styles.proBadge}>
+              <Text style={styles.proText}>PRO</Text>
             </View>
           )}
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.label}>Cole o texto aqui</Text>
+          <Text style={styles.label}>Texto para analisar</Text>
           <TextInput
             style={styles.textInput}
             multiline
+            scrollEnabled
             placeholder="Contratos, termos de uso, e-mails corporativos, artigos científicos..."
             placeholderTextColor={colors.textMuted}
             value={text}
@@ -137,7 +136,7 @@ export function HomeScreen() {
         />
 
         <Button
-          label={isPending ? 'Analisando...' : '✨ Simplificar texto'}
+          label={isPending ? 'Analisando...' : 'Simplificar texto'}
           onPress={handleAnalyze}
           loading={isPending}
           disabled={text.trim().length < 10}
@@ -158,17 +157,39 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  greeting: { color: colors.text, fontSize: 20, fontWeight: '700' },
-  remaining: { color: colors.primary, fontSize: 13, fontWeight: '600' },
-  premiumBadge: {
-    backgroundColor: 'rgba(255,215,0,0.12)',
-    borderRadius: 8,
+  greeting: {
+    color: colors.text,
+    fontSize: 20,
+    fontWeight: '700',
+    letterSpacing: -0.3,
+  },
+  remaining: {
+    color: colors.primary,
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  proBadge: {
+    backgroundColor: '#C9A22720',
+    borderRadius: 6,
     paddingHorizontal: 10,
     paddingVertical: 4,
+    borderWidth: 1,
+    borderColor: '#C9A22740',
   },
-  premiumText: { color: colors.premium, fontSize: 12, fontWeight: '700' },
+  proText: {
+    color: '#C9A227',
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 1,
+  },
   section: { gap: 8 },
-  label: { color: colors.text, fontSize: 14, fontWeight: '600' },
+  label: {
+    color: colors.textMuted,
+    fontSize: 12,
+    fontWeight: '600',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+  },
   textInput: {
     backgroundColor: colors.surface,
     borderRadius: 14,
@@ -176,10 +197,15 @@ const styles = StyleSheet.create({
     color: colors.text,
     fontSize: 15,
     lineHeight: 24,
-    minHeight: 200,
+    minHeight: 120,
+    maxHeight: 180,
     borderWidth: 1.5,
     borderColor: colors.border,
   },
-  charCount: { color: colors.textMuted, fontSize: 11, textAlign: 'right' },
+  charCount: {
+    color: colors.textMuted,
+    fontSize: 11,
+    textAlign: 'right',
+  },
   button: { marginTop: 4 },
 });
