@@ -38,7 +38,7 @@ export class AnalysisController {
 
   getById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const analysis = await this.analysisService.getById(req.params.id, req.userId);
+      const analysis = await this.analysisService.getById(req.params.id as string, req.userId);
       res.json(analysis);
     } catch (e) {
       next(e);
@@ -47,7 +47,7 @@ export class AnalysisController {
 
   delete = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      await this.analysisService.delete(req.params.id, req.userId);
+      await this.analysisService.delete(req.params.id as string, req.userId);
       res.status(204).send();
     } catch (e) {
       next(e);
